@@ -40,7 +40,7 @@ onBeforeMount(async() => {
     <h2 class="loader" v-if="moviesData.isLoading.value">Loading...</h2>
     <div v-else class="movies-grid">
 
-      <MovieCard v-for="movie in moviesStore.movies.Search" :key="movie.imdbID" :movie="movie" />
+      <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie.imdbID" :movie="movie" />
 
     </div>
 

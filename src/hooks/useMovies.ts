@@ -54,6 +54,8 @@ export const useMovies = () => {
 
 
     watch([search, currentPage], debounce(async () => {
+
+      if(!search.value) return
      
         setIsLoadingWhileSearch(true);
         await getMovies();

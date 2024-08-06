@@ -16,7 +16,7 @@ watchEffect(() => {
 
 
 <template>
-    <div class="movie-pagination">
+    <div v-if="movieStore.movies" class="movie-pagination">
         
         <button :disabled="movieStore.currentPage === 1"  @click="movieStore.setCurrentPage(movieStore.currentPage - 1)"><</button>
         <div :key="item" v-for="item in pages">
