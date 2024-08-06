@@ -31,6 +31,10 @@ watchEffect(() => {
 .movie-pagination {
     padding: 20px 0px;
     display: flex;
+    max-width: 1200px;
+    margin:  0 auto;
+    height: 250px;
+    overflow-y: auto;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
