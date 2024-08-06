@@ -33,7 +33,6 @@ watchEffect(() => {
     display: flex;
     max-width: 1200px;
     margin:  0 auto;
-    height: 250px;
     overflow-y: auto;
     justify-content: center;
     flex-wrap: wrap;
