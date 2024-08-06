@@ -6,7 +6,6 @@ import { useAppStore } from '@/stores/app-store';
 
 import MoviePagination from '@/components/ui/MoviePagination.vue';
 import { onBeforeMount } from 'vue';
-import { RouterLink } from 'vue-router';
 
 
 const moviesStore = useAppStore()
