@@ -8,8 +8,9 @@ import MoviePagination from '@/components/ui/MoviePagination.vue';
 import { onBeforeMount } from 'vue';
 
 
-const moviesData = useMovies()
 const moviesStore = useAppStore()
+const moviesData = useMovies()
+
 
 onBeforeMount(async() => {
       moviesData.isLoading.value = true;
@@ -32,17 +33,22 @@ onBeforeMount(async() => {
   <div class="home-view" :class="{loading: moviesStore.isLoadingWhileSearch}">
 
    
-    <h2 v-if="!moviesStore?.movies?.Search?.length || !moviesStore?.storeSearch">
-      {{ moviesStore.movies.Error || 'No results' }}
-    </h2>
-    <h2 v-else>You searched for: {{ moviesStore.storeSearch }}, {{ moviesStore.movies.totalResults }} results found </h2>
-
     <h2 class="loader" v-if="moviesData.isLoading.value">Loading...</h2>
-    <div v-else class="movies-grid">
+    <h2>You searched for: {{ moviesStore.storeSearch }}, {{ moviesStore.movies.totalResults || 0 }} results found </h2>
 
-      <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie.imdbID" :movie="movie" />
+    
 
-    </div>
+      <div class="movies-grid" v-if="moviesStore.movies?.Search?.length">
+        <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie?.imdbID" :movie="movie" />
+
+      </div>
+
+      <h2 v-else>
+        {{ moviesStore.movies.Error || 'No results' }}
+      </h2>
+
+    
+
 
     <MoviePagination />
 

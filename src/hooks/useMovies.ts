@@ -29,13 +29,11 @@ export const useMovies = () => {
      * @return {Promise<void>} A promise that resolves when the movies data is successfully fetched and set.
      */
     const getMovies = async () => {
-        console.log(currentPage);
         
-        const data = await MoviesApi.get<MoviesData>(
-            `${MoviesApi.baseUrl}/?i=tt3896198&${MoviesApi.apiKey}&s=${search.value}&page=${currentPage.value}`
-        )
-        setMovies(data);
-        setSearch(search.value);
+      const data = await MoviesApi.get<MoviesData>(
+          `${MoviesApi.baseUrl}/?i=tt3896198&${MoviesApi.apiKey}&s=${storeSearch.value}&page=${currentPage.value}`
+      )
+      setMovies(data);
 
 
     }
@@ -53,11 +51,15 @@ export const useMovies = () => {
     
 
 
-    watch([search, currentPage], debounce(async () => {
+    watch([storeSearch, currentPage], debounce(async () => {
 
-      if(!search.value) return
+      if(!storeSearch.value){
+      
+        return
+      }
      
         setIsLoadingWhileSearch(true);
+     
         await getMovies();
         setIsLoadingWhileSearch(false);
     }, 1000))

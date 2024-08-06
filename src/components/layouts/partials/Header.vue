@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useMovies } from '@/hooks/useMovies';
 import { useAppStore } from '@/stores/app-store';
+import { storeToRefs } from 'pinia';
 
 
 const moviesData = useMovies()
 const {setCurrentPage} = useAppStore()
+const {storeSearch} = storeToRefs(useAppStore())
 
 </script>
 
@@ -19,7 +21,7 @@ const {setCurrentPage} = useAppStore()
                     <h1>Movie catalog</h1>
                 </div>
                 <div class="header-navigation-search">
-                    <input @focus="setCurrentPage(1)" v-model="moviesData.search.value" placeholder="Search a moovie" pattern=".*\S.*" type="search" name="search" id="search">
+                    <input @focus="setCurrentPage(1)" v-model="storeSearch" placeholder="Search a moovie" pattern=".*\S.*" type="search" name="search" id="search">
                 </div>
 
                 <div class="profile">

@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import { useMovies } from '@/hooks/useMovies';
 import { useAppStore } from '@/stores/app-store';
 import { ref, watchEffect } from 'vue';
 
 
 const movieStore = useAppStore()
-const movieData = useMovies()
 const pages = ref<number>(0)
 
 watchEffect(() => {
-    pages.value = Math.ceil(+movieStore.movies?.totalResults / 10)
+    pages.value = Math.floor(+movieStore.movies?.totalResults / 10)
 })
 
 </script>
 
 
 <template>
-    <div v-if="movieStore.movies" class="movie-pagination">
+    <div v-if="movieStore.movies.Response !== 'False'" class="movie-pagination">
         
         <button :disabled="movieStore.currentPage === 1"  @click="movieStore.setCurrentPage(movieStore.currentPage - 1)"><</button>
         <div :key="item" v-for="item in pages">
