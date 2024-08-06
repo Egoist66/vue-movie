@@ -18,7 +18,7 @@ const {storeSearch} = storeToRefs(useAppStore())
             <nav class="header-navigation">
 
                 <div class="header-logo">
-                    <h1>Movie catalog</h1>
+                    <h1 @click="$router.push({name: 'home'})">Movie catalog</h1>
                 </div>
                 <div class="header-navigation-search">
                     <input @focus="setCurrentPage(1)" v-model="storeSearch" placeholder="Search a moovie" pattern=".*\S.*" type="search" name="search" id="search">
@@ -45,6 +45,9 @@ const {storeSearch} = storeToRefs(useAppStore())
 
 <style lang="scss" scoped>
 
+h1 {
+    cursor: pointer;
+}
 
 header {
     background: rgb(118, 172, 193);

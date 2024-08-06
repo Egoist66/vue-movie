@@ -6,13 +6,16 @@ import { useAppStore } from '@/stores/app-store';
 
 import MoviePagination from '@/components/ui/MoviePagination.vue';
 import { onBeforeMount } from 'vue';
+import { RouterLink } from 'vue-router';
 
 
 const moviesStore = useAppStore()
 const moviesData = useMovies()
 
 
+
 onBeforeMount(async() => {
+     moviesStore.setSingleMovie(null);
       moviesData.isLoading.value = true;
 
       try {
@@ -39,7 +42,9 @@ onBeforeMount(async() => {
     
 
       <div class="movies-grid" v-if="moviesStore.movies?.Search?.length">
+        
         <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie?.imdbID" :movie="movie" />
+      
 
       </div>
 

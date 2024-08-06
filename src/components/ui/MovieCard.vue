@@ -1,37 +1,50 @@
 <script setup lang="ts">
 import type { Movie } from '@/stores/app-store';
+import { RouterLink } from 'vue-router';
 
-const {movie} = defineProps<{movie: Movie}>()
+const { movie } = defineProps<{ movie: Movie }>()
 
 
 </script>
 
 <template>
+
     <div class="movie-card">
+        <RouterLink :to="`/movie/${movie.imdbID}`">
 
-        <div class="movie-card-img">
-            <img class="movie-img" loading="lazy" :src="movie.Poster === 'N/A' ? '/placeholder.jpg' : movie.Poster" :alt="movie.Title">
-        </div>
+            <div class="movie-card-img">
+                <img class="movie-img" loading="lazy" :src="movie.Poster === 'N/A' ? '/placeholder.jpg' : movie.Poster"
+                    :alt="movie.Title">
+            </div>
 
-        <div class="movie-card-info">
-            <h3>Name:{{ movie.Title }}</h3>
-            <p>Year:{{ movie.Year }}</p>
-            <p>ID:{{ movie.imdbID }}</p>
-            <p>Type:{{ movie.Type }}</p>
-        </div>
+            <div class="movie-card-info">
+                <h3>Name:{{ movie.Title }}</h3>
+                <p>Year:{{ movie.Year }}</p>
+                <p>ID:{{ movie.imdbID }}</p>
+                <p>Type:{{ movie.Type }}</p>
+            </div>
+
+        </RouterLink>
 
     </div>
+
 </template>
 
 
 
 <style scoped>
+a {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
 
 h3 {
     margin-top: 5px;
 }
 
-h3, p {
+h3,
+p {
     margin-bottom: 5px;
 }
 
@@ -40,6 +53,7 @@ h3, p {
     height: 320px;
     object-fit: cover;
 }
+
 .movie-card {
     box-shadow: 1px 1px 4px rgb(174, 174, 174);
 }
