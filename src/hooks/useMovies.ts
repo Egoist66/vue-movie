@@ -3,6 +3,13 @@ import { useAppStore, type MoviesData } from "@/stores/app-store";
 import { debounce } from "@/utils/debounce";
 import { onBeforeMount, ref, watch } from "vue";
 
+
+/**
+ * Fetches movies data from the API based on the current search value and page number.
+ *
+ * @return {Promise<void>} A promise that resolves when the movies data is successfully fetched and set.
+ */
+
 export const useMovies = () => {
   const search = ref<string>("Batman");
   const page = ref<number>(1);
@@ -12,6 +19,11 @@ export const useMovies = () => {
   const isLoading = ref<boolean>(false);
   const isError = ref<boolean>(false);
 
+    /**
+     * Fetches movies data from the API based on the current search value and page number.
+     *
+     * @return {Promise<void>} A promise that resolves when the movies data is successfully fetched and set.
+     */
     const getMovies = async () => {
         
         const data = await MoviesApi.get<MoviesData>(
@@ -23,11 +35,17 @@ export const useMovies = () => {
 
     }
 
+    /**
+   * Updates the value of the `page` ref with the given `data`.
+   *
+   * @param {number} data - The new value for the `page` ref.
+   * @return {void} This function does not return anything.
+   */
     const setPage = (data: number) => {
       page.value = data
     }
 
-    onBeforeMount(async () => {
+    onBeforeMount(async() => {
       isLoading.value = true;
 
       try {
