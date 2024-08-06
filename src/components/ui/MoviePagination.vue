@@ -18,12 +18,12 @@ watchEffect(() => {
 <template>
     <div class="movie-pagination">
         
-        <button :disabled="movieData.page.value === 1"  @click="movieData.setPage(movieData.page.value - 1)"><</button>
+        <button :disabled="movieStore.currentPage === 1"  @click="movieStore.setCurrentPage(movieStore.currentPage - 1)"><</button>
         <div :key="item" v-for="item in pages">
-            <button @click="movieData.setPage(item)" :class="{ 'active-page': item === movieData.page.value }">{{
+            <button @click="movieStore.setCurrentPage(item)" :class="{ 'active-page': item === movieStore.currentPage }">{{
                 item }}</button>
         </div>
-        <button :disabled="movieData.page.value === pages"  @click="movieData.setPage(movieData.page.value + 1)">></button>
+        <button :disabled="movieStore.currentPage === pages"  @click="movieStore.setCurrentPage(movieStore.currentPage + 1)">></button>
     </div>
 </template>
 

@@ -26,6 +26,7 @@ export interface Movie {
 export const useAppStore = defineStore('app-store', () => {
  
   const storeSearch = ref<string>('Batman')
+  const currentPage = ref<number>(1)
   const isLoadingWhileSearch = ref<boolean>(false)
   const movies = ref<MoviesData>({
     Search: [],
@@ -49,12 +50,18 @@ export const useAppStore = defineStore('app-store', () => {
     storeSearch.value = data
   }
 
+
+  const setCurrentPage = (data: number) => {
+    currentPage.value = data
+  }
   return {
     movies,
     storeSearch,
+    currentPage,
     moviesList,
     isLoadingWhileSearch,
     setMovies,
+    setCurrentPage,
     setIsLoadingWhileSearch,
     setSearch
     

@@ -1,7 +1,8 @@
 import { MoviesApi } from "@/api/movies.api";
 import { useAppStore, type MoviesData } from "@/stores/app-store";
 import { debounce } from "@/utils/debounce";
-import { onBeforeMount, ref, watch, toRef } from "vue";
+import { storeToRefs } from "pinia";
+import { ref, watch } from "vue";
 
 
 /**
@@ -13,7 +14,10 @@ import { onBeforeMount, ref, watch, toRef } from "vue";
 export const useMovies = () => {
   const search = ref<string>("Batman");
   const page = ref<number>(1);
-  const { setMovies, setSearch, setIsLoadingWhileSearch, storeSearch} = useAppStore();
+  const { setMovies, setSearch, setIsLoadingWhileSearch, setCurrentPage, } = useAppStore();
+
+
+  const {currentPage, storeSearch} = storeToRefs(useAppStore())
 
 
   const isLoading = ref<boolean>(false);
@@ -25,9 +29,10 @@ export const useMovies = () => {
      * @return {Promise<void>} A promise that resolves when the movies data is successfully fetched and set.
      */
     const getMovies = async () => {
+        console.log(currentPage);
         
         const data = await MoviesApi.get<MoviesData>(
-            `${MoviesApi.baseUrl}/?i=tt3896198&${MoviesApi.apiKey}&s=${search.value}&page=${page.value}`
+            `${MoviesApi.baseUrl}/?i=tt3896198&${MoviesApi.apiKey}&s=${search.value}&page=${currentPage.value}`
         )
         setMovies(data);
         setSearch(search.value);
@@ -42,17 +47,21 @@ export const useMovies = () => {
    * @return {void} This function does not return anything.
    */
     const setPage = (data: number) => {
-      page.value = data
+      setCurrentPage(data)
     }
 
     
 
 
-    watch([search, page], debounce(async () => {
+    watch([search, currentPage], debounce(async () => {
+     
         setIsLoadingWhileSearch(true);
         await getMovies();
         setIsLoadingWhileSearch(false);
     }, 1000))
+
+    
+    
 
   
     
