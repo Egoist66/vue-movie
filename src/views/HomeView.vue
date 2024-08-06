@@ -6,6 +6,7 @@ import { useAppStore } from '@/stores/app-store';
 
 import MoviePagination from '@/components/ui/MoviePagination.vue';
 import { onBeforeMount } from 'vue';
+import { delay } from '@/utils/delay';
 
 
 const moviesStore = useAppStore()
@@ -18,6 +19,7 @@ onBeforeMount(async() => {
       moviesData.isLoading.value = true;
 
       try {
+        await delay(500);
         await moviesData.getMovies();
       }
       catch (e) {
@@ -35,21 +37,22 @@ onBeforeMount(async() => {
   <div class="home-view" :class="{loading: moviesStore.isLoadingWhileSearch}">
 
    
-    <h2 class="loader" v-if="moviesData.isLoading.value">Loading...</h2>
     <h2>You searched for: {{ moviesStore.storeSearch }}, {{ moviesStore.movies.totalResults || 0 }} results found </h2>
 
+     <h2 class="loader" v-if="moviesData.isLoading.value">Loading...</h2>
+
+      <div v-else>
+          <div class="movies-grid" v-if="moviesStore.movies?.Search?.length">
+          
+            <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie?.imdbID" :movie="movie" />
+          
     
-
-      <div class="movies-grid" v-if="moviesStore.movies?.Search?.length">
-        
-        <MovieCard v-for="movie in moviesStore?.movies?.Search" :key="movie?.imdbID" :movie="movie" />
-      
-
+          </div>
+    
+          <h2 v-else>
+            {{ moviesStore.movies.Error || 'No results' }}
+          </h2>
       </div>
-
-      <h2 v-else>
-        {{ moviesStore.movies.Error || 'No results' }}
-      </h2>
 
     
 

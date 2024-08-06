@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useMovies } from '@/hooks/useMovies';
 import { useAppStore } from '@/stores/app-store';
 import { storeToRefs } from 'pinia';
 import type { Router } from 'vue-router';
