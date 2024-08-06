@@ -2,11 +2,18 @@
 import { useMovies } from '@/hooks/useMovies';
 import { useAppStore } from '@/stores/app-store';
 import { storeToRefs } from 'pinia';
+import type { Router } from 'vue-router';
 
 
 const moviesData = useMovies()
 const {setCurrentPage} = useAppStore()
 const {storeSearch} = storeToRefs(useAppStore())
+
+const resetSearchField = ($router: Router) => {
+    setCurrentPage(1)
+    $router.push({name: 'home'})
+
+}
 
 </script>
 
@@ -21,7 +28,7 @@ const {storeSearch} = storeToRefs(useAppStore())
                     <h1 @click="$router.push({name: 'home'})">Movie catalog</h1>
                 </div>
                 <div class="header-navigation-search">
-                    <input @focus="setCurrentPage(1)" v-model="storeSearch" placeholder="Search a moovie" pattern=".*\S.*" type="search" name="search" id="search">
+                    <input @focus="resetSearchField($router)" v-model="storeSearch" placeholder="Search a moovie" pattern=".*\S.*" type="search" name="search" id="search">
                 </div>
 
                 <div class="profile">
