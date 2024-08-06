@@ -88,5 +88,9 @@ button {
 @media(max-width: 800px){
     .home-view div.movies-grid {
         display: block;
+
+        .movie-card {
+            margin-bottom: 30px;
+        }
     }
 } 
