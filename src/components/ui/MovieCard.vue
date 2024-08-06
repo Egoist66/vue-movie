@@ -40,5 +40,11 @@ h3, p {
     height: 320px;
     object-fit: cover;
 }
+.movie-card {
+    box-shadow: 1px 1px 4px rgb(174, 174, 174);
+}
 
+.movie-card-info {
+    padding: 10px;
+}
 </style>
