@@ -1,7 +1,7 @@
 import { MoviesApi } from "@/api/movies.api";
 import { useAppStore, type MoviesData } from "@/stores/app-store";
 import { debounce } from "@/utils/debounce";
-import { onBeforeMount, ref, watch } from "vue";
+import { onBeforeMount, ref, watch, toRef } from "vue";
 
 
 /**
@@ -13,7 +13,7 @@ import { onBeforeMount, ref, watch } from "vue";
 export const useMovies = () => {
   const search = ref<string>("Batman");
   const page = ref<number>(1);
-  const { setMovies, setSearch, setIsLoadingWhileSearch} = useAppStore();
+  const { setMovies, setSearch, setIsLoadingWhileSearch, storeSearch} = useAppStore();
 
 
   const isLoading = ref<boolean>(false);
@@ -45,19 +45,7 @@ export const useMovies = () => {
       page.value = data
     }
 
-    onBeforeMount(async() => {
-      isLoading.value = true;
-
-      try {
-        await getMovies();
-      }
-      catch (e) {
-        isError.value = true;
-      }
-      finally {
-        isLoading.value = false;
-      }
-    });
+    
 
 
     watch([search, page], debounce(async () => {
@@ -66,6 +54,12 @@ export const useMovies = () => {
         setIsLoadingWhileSearch(false);
     }, 1000))
 
+    watch([storeSearch], () => {
+      console.log(22222222);
+      
+      setPage(1)
+    })
+    
     return {
       search,
       isLoading,
