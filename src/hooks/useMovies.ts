@@ -54,11 +54,7 @@ export const useMovies = () => {
         setIsLoadingWhileSearch(false);
     }, 1000))
 
-    watch([storeSearch], () => {
-      console.log(22222222);
-      
-      setPage(1)
-    })
+  
     
     return {
       search,
